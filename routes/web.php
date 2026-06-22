@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\IssueController;
+use App\Http\Controllers\IssueMemberController;
 use App\Http\Controllers\IssueTagController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
@@ -35,6 +36,9 @@ Route::middleware('auth')->group(function () {
 
     Route::post('issues/{issue}/tags', [IssueTagController::class, 'store'])->name('issues.tags.store');
     Route::delete('issues/{issue}/tags/{tag}', [IssueTagController::class, 'destroy'])->name('issues.tags.destroy');
+
+    Route::post('issues/{issue}/members', [IssueMemberController::class, 'store'])->name('issues.members.store');
+    Route::delete('issues/{issue}/members/{user}', [IssueMemberController::class, 'destroy'])->name('issues.members.destroy');
 });
 
 require __DIR__.'/auth.php';

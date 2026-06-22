@@ -58,15 +58,25 @@
 
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
                 <h3 class="font-semibold text-gray-800 mb-3">{{ __('Members') }}</h3>
-                <div class="flex flex-wrap gap-2">
+                <div id="members-list" class="flex flex-wrap gap-2 mb-4" data-empty-text="{{ __('No members assigned yet.') }}">
                     @forelse ($issue->members as $member)
-                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
-                            {{ $member->name }}
-                        </span>
+                        @include('issues._member_chip')
                     @empty
-                        <span class="text-sm text-gray-500">{{ __('No members assigned yet.') }}</span>
+                        <span class="text-sm text-gray-500" data-empty-placeholder>{{ __('No members assigned yet.') }}</span>
                     @endforelse
                 </div>
+
+                <form id="attach-member-form" data-issue-id="{{ $issue->id }}" class="flex gap-2 items-end">
+                    <div>
+                        <select id="attach-member-select" name="user_id" class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm text-sm">
+                            <option value="">{{ __('Add a member...') }}</option>
+                            @foreach ($allUsers as $user)
+                                <option value="{{ $user->id }}" @disabled($issue->members->contains($user->id))>{{ $user->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <x-secondary-button type="submit">{{ __('Assign') }}</x-secondary-button>
+                </form>
             </div>
 
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">

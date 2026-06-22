@@ -6,6 +6,7 @@ use App\Http\Requests\IssueRequest;
 use App\Models\Issue;
 use App\Models\Project;
 use App\Models\Tag;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class IssueController extends Controller
@@ -60,8 +61,9 @@ class IssueController extends Controller
         $issue->load(['project', 'tags', 'members']);
         $comments = $issue->comments()->paginate(5);
         $allTags = Tag::orderBy('name')->get();
+        $allUsers = User::orderBy('name')->get();
 
-        return view('issues.show', compact('issue', 'comments', 'allTags'));
+        return view('issues.show', compact('issue', 'comments', 'allTags', 'allUsers'));
     }
 
     /**
