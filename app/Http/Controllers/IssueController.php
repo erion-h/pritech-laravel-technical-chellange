@@ -59,8 +59,9 @@ class IssueController extends Controller
     {
         $issue->load(['project', 'tags', 'members']);
         $comments = $issue->comments()->paginate(5);
+        $allTags = Tag::orderBy('name')->get();
 
-        return view('issues.show', compact('issue', 'comments'));
+        return view('issues.show', compact('issue', 'comments', 'allTags'));
     }
 
     /**
