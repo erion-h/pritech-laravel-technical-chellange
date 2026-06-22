@@ -30,12 +30,20 @@ For local development with hot-reloading assets, run `npm run dev` in a separate
 
 ## Seeded accounts
 
+Every seeded user shares the password `password`. All 8 are fixed/predictable, so they're stable across reseeds:
+
 | Email | Password | Role |
 |---|---|---|
 | alice@example.com | password | Owns 3 projects |
 | bob@example.com | password | Owns 3 projects |
+| carol@example.com | password | Assignable member |
+| dave@example.com | password | Assignable member |
+| erin@example.com | password | Assignable member |
+| frank@example.com | password | Assignable member |
+| grace@example.com | password | Assignable member |
+| heidi@example.com | password | Assignable member |
 
-Plus 6 additional users available as assignable issue members. The seeder creates 6 projects, ~72 issues spanning every status/priority combination, 6 tags, and a randomized spread of comments and member assignments — enough data to exercise every filter, search, and pagination path on first run.
+The seeder creates 6 projects, ~72 issues spanning every status/priority combination, 6 tags, and a randomized spread of comments and member assignments — enough data to exercise every filter, search, and pagination path on first run.
 
 ## Features
 

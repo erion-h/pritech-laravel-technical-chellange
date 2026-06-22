@@ -31,7 +31,25 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt('password'),
         ]);
 
-        $members = User::factory(6)->create();
+        $memberNames = [
+            'Carol Member',
+            'Dave Member',
+            'Erin Member',
+            'Frank Member',
+            'Grace Member',
+            'Heidi Member',
+        ];
+
+        $members = collect($memberNames)->map(function (string $name, int $index) {
+            $email = strtolower(explode(' ', $name)[0]).'@example.com';
+
+            return User::factory()->create([
+                'name' => $name,
+                'email' => $email,
+                'password' => bcrypt('password'),
+            ]);
+        });
+
         $allUsers = $members->push($alice, $bob);
 
         $tags = collect(['bug', 'feature', 'enhancement', 'urgent', 'docs', 'wontfix'])
