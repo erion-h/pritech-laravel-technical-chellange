@@ -1,5 +1,5 @@
 @if ($comments->isEmpty())
-    <p class="text-sm text-gray-500">{{ __('No comments yet.') }}</p>
+    <p class="text-sm text-gray-500" data-empty-placeholder>{{ __('No comments yet.') }}</p>
 @else
     <div class="space-y-4">
         @foreach ($comments as $comment)

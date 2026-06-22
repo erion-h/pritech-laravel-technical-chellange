@@ -76,17 +76,17 @@
                     @include('comments._list')
                 </div>
 
-                <form method="POST" action="{{ route('issues.comments.store', $issue) }}">
+                <form id="comment-form" method="POST" action="{{ route('issues.comments.store', $issue) }}">
                     @csrf
                     <div>
                         <x-input-label for="author_name" :value="__('Your name')" />
                         <x-text-input id="author_name" name="author_name" type="text" class="mt-1 block w-full" required />
-                        <x-input-error :messages="$errors->get('author_name')" class="mt-2" />
+                        <div data-error-for="author_name" class="text-sm text-red-600 mt-2"></div>
                     </div>
                     <div class="mt-4">
                         <x-input-label for="body" :value="__('Comment')" />
                         <textarea id="body" name="body" rows="3" class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" required></textarea>
-                        <x-input-error :messages="$errors->get('body')" class="mt-2" />
+                        <div data-error-for="body" class="text-sm text-red-600 mt-2"></div>
                     </div>
                     <div class="mt-4">
                         <x-primary-button>{{ __('Add Comment') }}</x-primary-button>
