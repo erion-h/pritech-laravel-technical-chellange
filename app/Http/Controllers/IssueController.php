@@ -5,21 +5,33 @@ namespace App\Http\Controllers;
 use App\Http\Requests\IssueRequest;
 use App\Models\Issue;
 use App\Models\Project;
+use App\Models\Tag;
+use Illuminate\Http\Request;
 
 class IssueController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $issues = Issue::with(['project', 'tags'])
             ->withCount('comments')
+            ->status($request->query('status'))
+            ->priority($request->query('priority'))
+            ->tag($request->query('tag'))
+            ->search($request->query('q'))
             ->latest()
             ->paginate(15)
             ->withQueryString();
 
-        return view('issues.index', compact('issues'));
+        if ($request->ajax()) {
+            return view('issues._list', compact('issues'));
+        }
+
+        $tags = Tag::orderBy('name')->get();
+
+        return view('issues.index', compact('issues', 'tags'));
     }
 
     /**
